@@ -17,15 +17,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSURL *url = [NSURL URLWithString:@"http://192.168.0.101:3000/client"];
+    NSURL *url = [NSURL URLWithString:@"http://aggress.red5demo.com/client"];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
 
     NSString *token = [NSString stringWithFormat:@"DeviceToken=%@", [self deviceToken]];
-    NSLog(@"logggg %@", token);
     //[urlRequest setValue: token forHTTPHeaderField: @"Set-Cookie"]; 
 
     NSDictionary *properties = [NSMutableDictionary
-        dictionaryWithObjectsAndKeys:@".192.168.0.101", NSHTTPCookieDomain,
+        dictionaryWithObjectsAndKeys:@".red5demo.com", NSHTTPCookieDomain,
         @"deviceToken", NSHTTPCookieName,
         @"/", NSHTTPCookiePath,
         [self deviceToken], NSHTTPCookieValue,
