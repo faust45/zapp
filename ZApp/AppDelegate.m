@@ -18,8 +18,13 @@
     return [super respondsToSelector:(sel)];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (void)applicationDidFinishLaunching:(UIApplication *)app {
+   // other setup tasks here....
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //// Override point for customization after application launch.
     //self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     //self.window.rootViewController = self.viewController;
@@ -28,16 +33,30 @@
     //UITabBarController* tabBarController = [[UITabBarController alloc] init];
  
    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-   UIViewController* vc1 = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
- 
-   //NSArray* controllers = [NSArray arrayWithObjects:vc1, vc1, nil];
-   //tabBarController.viewControllers = controllers;
+   [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+		(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+   return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Convert the binary data token into an NSString (see below for the implementation of this function)
+    // Show the device token obtained from apple to the log
+    ViewController* vc1 = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    [vc1 setDeviceToken: [deviceToken description]];
  
    self.window.rootViewController = vc1;
    [self.window makeKeyAndVisible];
 
-   return YES;
+
+    NSLog(@"My token is: %@", deviceToken);
+    //[[self.window.rootViewController webView] loadRequest: urlRequest];
+
 }
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSLog(@"Error in registration. Error: %@", err);
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

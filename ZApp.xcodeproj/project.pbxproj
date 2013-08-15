@@ -266,10 +266,16 @@
 		D76FAB7C1796022200025106 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shastun Anton (542GX5D452)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shastun Anton (542GX5D452)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZApp/ZApp-Prefix.pch";
 				INFOPLIST_FILE = "ZApp/ZApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "DC1ECCF9-4160-4599-8B6A-D1882C06F062";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DC1ECCF9-4160-4599-8B6A-D1882C06F062";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -277,10 +283,16 @@
 		D76FAB7D1796022200025106 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shastun Anton (542GX5D452)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shastun Anton (542GX5D452)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZApp/ZApp-Prefix.pch";
 				INFOPLIST_FILE = "ZApp/ZApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "DC1ECCF9-4160-4599-8B6A-D1882C06F062";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DC1ECCF9-4160-4599-8B6A-D1882C06F062";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
