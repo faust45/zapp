@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  NSURL *url = [NSURL URLWithString:@"http://10.3.36.132:3000/client"];
+  NSURL *url = [NSURL URLWithString:@"http://aggress.red5demo.com/client"];
   NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
 
   NSDictionary *properties = [NSMutableDictionary
