@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
+#import "Reachability.h"
+#import "Reachability.m"
 
 @implementation AppDelegate
 
@@ -20,8 +22,6 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)app {
    // other setup tasks here....
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -32,10 +32,49 @@
     //return YES;
     //UITabBarController* tabBarController = [[UITabBarController alloc] init];
  
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");        
+        // Allocate a reachability object
+        Reachability* reach = [Reachability reachabilityWithHostname:@"www.google.com"];
+        
+        // Tell the reachability that we DON'T want to be reachable on 3G/EDGE/CDMA
+        reach.reachableOnWWAN = NO;
+        
+        // Here we set up a NSNotification observer. The Reachability that caused the notification
+        // is passed in the object parameter
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(handleNetworkChange:) 
+                                                     name:kReachabilityChangedNotification 
+                                                   object:nil];
+        
+        [reach startNotifier];
+
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert", nil)
+                                                        message:NSLocalizedString(@"There IS NO internet connection", nil)
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else {        
+         NSLog(@"There IS internet connection");        
+    }
+
    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
 		(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
    return YES;
+}
+
+- (void)handleNetworkChange:(NSNotification *)notice{
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus status = [networkReachability currentReachabilityStatus];
+    if (status == NotReachable) {
+        NSLog(@"connection off");        
+    } else {
+        NSLog(@"connection on");        
+    }
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

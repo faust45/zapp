@@ -16,28 +16,32 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    NSURL *url = [NSURL URLWithString:@"http://aggress.red5demo.com/client"];
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+  [super viewDidLoad];
+  NSURL *url = [NSURL URLWithString:@"http://10.3.36.132:3000/client"];
+  NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
 
-    NSString *token = [NSString stringWithFormat:@"DeviceToken=%@", [self deviceToken]];
-    //[urlRequest setValue: token forHTTPHeaderField: @"Set-Cookie"]; 
+  NSDictionary *properties = [NSMutableDictionary
+      dictionaryWithObjectsAndKeys:@".red5demo.com", NSHTTPCookieDomain,
+      @"deviceToken", NSHTTPCookieName,
+      @"/", NSHTTPCookiePath,
+      [self deviceToken], NSHTTPCookieValue,
+      @"2014-05-03 21:02:41 -0700", NSHTTPCookieExpires, nil];
+  NSHTTPCookie *myCookie = [NSHTTPCookie cookieWithProperties:properties];
 
-    NSDictionary *properties = [NSMutableDictionary
-        dictionaryWithObjectsAndKeys:@".red5demo.com", NSHTTPCookieDomain,
-        @"deviceToken", NSHTTPCookieName,
-        @"/", NSHTTPCookiePath,
-        [self deviceToken], NSHTTPCookieValue,
-        @"2014-05-03 21:02:41 -0700", NSHTTPCookieExpires, nil];
-    NSHTTPCookie *myCookie = [NSHTTPCookie cookieWithProperties:properties];
+  [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+  [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie: myCookie];
 
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie: myCookie];
+  [self.webView loadRequest: urlRequest];
+  self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  self.webView.delegate = self;
+  // Do any additional setup after loading the view, typically from a nib.
+}
 
-    [[self webView] loadRequest: urlRequest];
-    [self webView].autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.webView.delegate = self;
-    // Do any additional setup after loading the view, typically from a nib.
+- (void)webView:(UIWebView *)wv didFailLoadWithError:(NSError *)error {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	
+	NSString *errorString = [error localizedDescription];
+	NSLog(@"webView:didFailLoadWithError: %@", errorString );
 }
 
 - (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)inType {
