@@ -15,7 +15,9 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
-@property NSString *deviceToken;
+//NSString *deviceToken;
 
+- (void) loadPage: (NSString*) url;
+- (void) setDeviceToken: (NSString*) deviceToken;
 
 @end

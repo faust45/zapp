@@ -14,8 +14,7 @@
 
 @implementation AppDelegate
 
-- (BOOL) respondsToSelector: (SEL) sel 
-{
+- (BOOL) respondsToSelector: (SEL) sel {
     //NSLog(@"Debug - %@", NSStringFromSelector(sel));
     return [super respondsToSelector:(sel)];
 }
@@ -25,22 +24,14 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //// Override point for customization after application launch.
-    //self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    //self.window.rootViewController = self.viewController;
-    //[self.window makeKeyAndVisible];
-    //return YES;
-    //UITabBarController* tabBarController = [[UITabBarController alloc] init];
- 
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");        
-        // Allocate a reachability object
         Reachability* reach = [Reachability reachabilityWithHostname:@"www.google.com"];
         
         // Tell the reachability that we DON'T want to be reachable on 3G/EDGE/CDMA
-        reach.reachableOnWWAN = NO;
+        //reach.reachableOnWWAN = NO;
         
         // Here we set up a NSNotification observer. The Reachability that caused the notification
         // is passed in the object parameter
@@ -58,13 +49,20 @@
                                               otherButtonTitles:nil];
         [alert show];
     } else {        
-         NSLog(@"There IS internet connection");        
     }
 
    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
 		(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
    return YES;
+}
+
+- (void) application: (UIApplication*) application 
+         didReceiveRemoteNotification: (NSDictionary*) userInfo { 
+    NSLog(@"Alert message: %@", [[userInfo valueForKey:@"aps"] valueForKey:@"alert"]);
+    NSLog(@"Alert message: %@", userInfo);
+       
+    [self.viewController loadPage: [userInfo valueForKey:@"url"]];
 }
 
 - (void)handleNetworkChange:(NSNotification *)notice{
@@ -77,19 +75,18 @@
     }
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    // Convert the binary data token into an NSString (see below for the implementation of this function)
-    // Show the device token obtained from apple to the log
+- (void) application: (UIApplication *) application 
+         didRegisterForRemoteNotificationsWithDeviceToken: (NSData *) deviceToken {
+
     ViewController* vc1 = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     [vc1 setDeviceToken: [deviceToken description]];
  
-   self.window.rootViewController = vc1;
-   [self.window makeKeyAndVisible];
+    self.window.rootViewController = vc1;
+    [self.window makeKeyAndVisible];
 
+    self.viewController = vc1;
 
     NSLog(@"My token is: %@", deviceToken);
-    //[[self.window.rootViewController webView] loadRequest: urlRequest];
-
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {

@@ -14,27 +14,46 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
-{
+- (void) viewDidLoad {
   [super viewDidLoad];
-  NSURL *url = [NSURL URLWithString:@"http://aggress.red5demo.com/client"];
-  NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
 
-  NSDictionary *properties = [NSMutableDictionary
+  NSLog(@"load view controller");
+
+  self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  self.webView.delegate = self;
+
+  [self loadPage: @"/client"];
+
+  // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void) setDeviceToken: (NSString*) deviceToken {
+    NSDictionary *properties = [NSMutableDictionary
       dictionaryWithObjectsAndKeys:@".red5demo.com", NSHTTPCookieDomain,
       @"deviceToken", NSHTTPCookieName,
       @"/", NSHTTPCookiePath,
-      [self deviceToken], NSHTTPCookieValue,
+      deviceToken, NSHTTPCookieValue,
       @"2014-05-03 21:02:41 -0700", NSHTTPCookieExpires, nil];
-  NSHTTPCookie *myCookie = [NSHTTPCookie cookieWithProperties:properties];
+    NSHTTPCookie *myCookie = [NSHTTPCookie cookieWithProperties:properties];
 
-  [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-  [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie: myCookie];
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie: myCookie];
+}
 
-  [self.webView loadRequest: urlRequest];
-  self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  self.webView.delegate = self;
-  // Do any additional setup after loading the view, typically from a nib.
+- (void) loadPage: (NSString*) page {
+    NSMutableString* path = [NSMutableString string];
+    [path appendFormat:@"%@/%@", @"http://aggress.red5demo.com", page];
+
+    NSURL *url = [NSURL URLWithString: path];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [self.webView loadRequest: urlRequest];
+}
+
+- (void) application: (UIApplication *) application 
+         didReceiveRemoteNotification: (NSDictionary *) userInfo { 
+
+      NSLog(@"in View Alert message: %@", [[userInfo valueForKey:@"aps"] valueForKey:@"alert"]);
+      NSLog(@"in View Alert message: %@", userInfo);
 }
 
 - (void)webView:(UIWebView *)wv didFailLoadWithError:(NSError *)error {
