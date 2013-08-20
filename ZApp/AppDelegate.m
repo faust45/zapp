@@ -23,7 +23,8 @@
    // other setup tasks here....
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL) application: (UIApplication *) application 
+         didFinishLaunchingWithOptions: (NSDictionary *) launchOptions {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
 
@@ -59,10 +60,22 @@
 
 - (void) application: (UIApplication*) application 
          didReceiveRemoteNotification: (NSDictionary*) userInfo { 
-    NSLog(@"Alert message: %@", [[userInfo valueForKey:@"aps"] valueForKey:@"alert"]);
+
+    NSString *msg = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+    NSLog(@"Alert message: %@", msg);
     NSLog(@"Alert message: %@", userInfo);
-       
-    [self.viewController loadPage: [userInfo valueForKey:@"url"]];
+
+    if ( application.applicationState == UIApplicationStateActive ) {
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Message from coach", nil)
+                                                     message:NSLocalizedString(msg, nil)
+                                                    delegate:self
+                                           cancelButtonTitle:NSLocalizedString(@"NO", nil)
+                                           otherButtonTitles: nil];
+
+      [alert show];
+    } else {
+      [self.viewController loadPage: [userInfo valueForKey:@"url"]];
+    }
 }
 
 - (void)handleNetworkChange:(NSNotification *)notice{
