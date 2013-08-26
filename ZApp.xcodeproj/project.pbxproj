@@ -15,7 +15,6 @@
 		D76FAB6C1796022200025106 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FAB6B1796022200025106 /* AppDelegate.m */; };
 		D76FAB6E1796022200025106 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FAB6D1796022200025106 /* Default.png */; };
 		D76FAB701796022200025106 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FAB6F1796022200025106 /* Default@2x.png */; };
-		D76FAB721796022200025106 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FAB711796022200025106 /* Default-568h@2x.png */; };
 		D76FAB751796022200025106 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FAB741796022200025106 /* ViewController.m */; };
 		D76FAB781796022200025106 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D76FAB761796022200025106 /* ViewController.xib */; };
 		D7E6E9861796D03F009126BB /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E9851796D03F009126BB /* Task.m */; };
@@ -31,6 +30,7 @@
 		DD809D6117C7CA7F00FC27F1 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DD809D6017C7CA7F00FC27F1 /* Default-Portrait@2x~ipad.png */; };
 		DD809D6317C7CA9200FC27F1 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DD809D6217C7CA9200FC27F1 /* Default-Landscape~ipad.png */; };
 		DD809D6517C7CA9E00FC27F1 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DD809D6417C7CA9E00FC27F1 /* Default-Landscape@2x~ipad.png */; };
+		DD8F849A17C7E9DF0001F27E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FAB711796022200025106 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -203,7 +203,6 @@
 				D76FAB661796022200025106 /* InfoPlist.strings in Resources */,
 				D76FAB6E1796022200025106 /* Default.png in Resources */,
 				D76FAB701796022200025106 /* Default@2x.png in Resources */,
-				D76FAB721796022200025106 /* Default-568h@2x.png in Resources */,
 				D76FAB781796022200025106 /* ViewController.xib in Resources */,
 				DD809D5117C7C87900FC27F1 /* Icon.png in Resources */,
 				DD809D5317C7C87E00FC27F1 /* Icon@2x.png in Resources */,
@@ -216,6 +215,7 @@
 				DD809D6117C7CA7F00FC27F1 /* Default-Portrait@2x~ipad.png in Resources */,
 				DD809D6317C7CA9200FC27F1 /* Default-Landscape~ipad.png in Resources */,
 				DD809D6517C7CA9E00FC27F1 /* Default-Landscape@2x~ipad.png in Resources */,
+				DD8F849A17C7E9DF0001F27E /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,15 +314,15 @@
 		D76FAB7C1796022200025106 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shastun Anton (542GX5D452)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shastun Anton (542GX5D452)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Justin Stevens (X9AU8JCKAR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Justin Stevens (X9AU8JCKAR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZApp/ZApp-Prefix.pch";
 				INFOPLIST_FILE = "ZApp/ZApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DC1ECCF9-4160-4599-8B6A-D1882C06F062";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DC1ECCF9-4160-4599-8B6A-D1882C06F062";
+				PROVISIONING_PROFILE = "0214C92A-B8FC-4117-B7F9-68EEA232B2A7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0214C92A-B8FC-4117-B7F9-68EEA232B2A7";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -331,15 +331,15 @@
 		D76FAB7D1796022200025106 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shastun Anton (542GX5D452)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shastun Anton (542GX5D452)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Justin Stevens (X9AU8JCKAR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Justin Stevens (X9AU8JCKAR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZApp/ZApp-Prefix.pch";
 				INFOPLIST_FILE = "ZApp/ZApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DC1ECCF9-4160-4599-8B6A-D1882C06F062";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DC1ECCF9-4160-4599-8B6A-D1882C06F062";
+				PROVISIONING_PROFILE = "0214C92A-B8FC-4117-B7F9-68EEA232B2A7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0214C92A-B8FC-4117-B7F9-68EEA232B2A7";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
